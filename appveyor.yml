@@ -17,6 +17,6 @@ build:
   publish_nuget: true
   verbosity: minimal
 after_build:
-- ps: fixversion.ps1
+- ps: .\fixversion.ps1
 artifacts:
 - path: '*.nupkg'
