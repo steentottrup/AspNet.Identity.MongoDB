@@ -11,7 +11,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>ASP.NET Identity provider using MongoDB for data store.</description>
 		<language>en-GB</language>
-		<iconUrl></iconUrl>
+		<iconUrl>http://static.tumblr.com/lbtm3t2/8PAn0kziu/mongodb-logo.png</iconUrl>
 		<dependencies>
 		</dependencies>
 	</metadata>
