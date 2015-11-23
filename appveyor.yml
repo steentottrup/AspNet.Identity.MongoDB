@@ -9,6 +9,6 @@ assembly_info:
 before_build:
   - nuget restore src\AspNet.Identity.MongoDB.sln
 build:
-  project: src\AspNet.Identity.MongoDB.sln
+  publish_nuget: true  project: src\AspNet.Identity.MongoDB.sln
   publish_wap: true
   verbosity: normal
