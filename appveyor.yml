@@ -17,6 +17,6 @@ build:
   publish_nuget: true
   verbosity: minimal
 after_build:
-- ps: 'appveyor PushArtifact AspNet.Identity.MongoDB.$env:APPVEYOR_BUILD_VERSION.nupkg'
+- ps: get-childitem ..\ -rec | where {!$_.PSIsContainer} | select-object FullName, LastWriteTime, Length 
 artifacts:
 - path: '**\*.nupkg'
