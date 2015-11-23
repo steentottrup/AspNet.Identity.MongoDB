@@ -17,6 +17,6 @@ build:
   publish_nuget: true
   verbosity: minimal
 after_build:
-- ps: '#appveyor PushArtifact Illumi.Toolbox.SSN.$env:APPVEYOR_BUILD_VERSION.nupkg'
+- ps: 'appveyor PushArtifact AspNet.Identity.MongoDB.$env:APPVEYOR_BUILD_VERSION.nupkg'
 artifacts:
 - path: '**\*.nupkg'
