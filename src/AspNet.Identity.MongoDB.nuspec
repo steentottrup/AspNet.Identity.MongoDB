@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>AspNet.Identity.MongoDB</id>
-		<version>0.5.0.1</version>
+		<version>$version$</version>
 		<title>AspNet.Identity.MongoDB</title>
 		<authors>Steen F. Tøttrup</authors>
 		<owners>creativeminds</owners>

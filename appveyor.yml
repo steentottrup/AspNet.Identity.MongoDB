@@ -17,6 +17,6 @@ build:
   publish_nuget: true
   verbosity: minimal
 after_build:
-- NuGet.exe pack src\AspNet.Identity.MongoDB.nuspec
+- ps: fixversion.ps1
 artifacts:
-- path: 'src\AspNet.Identity.MongoDb\**\*.nupkg'
+- path: '*.nupkg'
