@@ -18,5 +18,7 @@ build:
   verbosity: minimal
 after_build:
 - ps: .\fixversion.ps1
-artifacts:
+before_test:
+- ps: .\Install-MongoDb-On-AppVeyor.ps1
+ artifacts:
 - path: '*.nupkg'
