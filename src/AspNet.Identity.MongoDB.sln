@@ -7,8 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Identity.MongoDB", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoneCode", "NoneCode", "{33607275-FB49-474D-A8A3-E0FEEA36F273}"
 	ProjectSection(SolutionItems) = preProject
-		LICENSE = LICENSE
-		README.md = README.md
+		..\appveyor.yml = ..\appveyor.yml
+		AspNet.Identity.MongoDB.nuspec = AspNet.Identity.MongoDB.nuspec
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Identity.MongoDB.Test", "..\test\AspNet.Identity.MongoDB.Test\AspNet.Identity.MongoDB.Test.csproj", "{145C6117-E081-45F2-98ED-66C97785F143}"
