@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>AspNet.Identity.MongoDB</id>
+		<version>0.5.0.1</version>
+		<title>AspNet.Identity.MongoDB</title>
+		<authors>Steen F. Tøttrup</authors>
+		<owners>creativeminds</owners>
+		<licenseUrl>https://github.com/steentottrup/AspNet.Identity.MongoDB/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/steentottrup/AspNet.Identity.MongoDB</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>ASP.NET Identity provider using MongoDB for data store.</description>
+		<language>en-GB</language>
+		<iconUrl></iconUrl>
+		<dependencies>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="AspNet.Identity.MongoDB\bin\release\AspNet.Identity.MongoDB.dll" target="lib\net45\AspNet.Identity.MongoDB.dll" />
+		<file src="AspNet.Identity.MongoDB\bin\release\AspNet.Identity.MongoDB.pdb" target="lib\net45\AspNet.Identity.MongoDB.pdb" />
+	</files>
+</package>

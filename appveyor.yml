@@ -1,0 +1,14 @@
+configuration: Release
+version: 0.5.0.{build}
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+before_build:
+  - nuget restore src\AspNet.Identity.MongoDB.sln
+build:
+  project: src\AspNet.Identity.MongoDB.sln
+  publish_wap: true
+  verbosity: normal

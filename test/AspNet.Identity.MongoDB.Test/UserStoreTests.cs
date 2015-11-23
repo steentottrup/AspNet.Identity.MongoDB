@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace AspNet.Identity.MongoDB.Test {
 	[TestClass]
-	public class UnitTest1 {
+	public class UserStoreTests {
 		[TestMethod]
 		public void TestMethod1() {
 		}

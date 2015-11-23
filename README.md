@@ -1,7 +1,7 @@
 AspNet.Identity.MongoDB
 =======================
 
-An updated version of an Identity provider using MongoDB for storage. This started out as a fork on the original project [https://github.com/InspectorIT/MongoDB.AspNet.Identity](MongoDB.AspNet.Identity by InspectorIT), but it seems the author has abandoned the project, so I've decided to create my own repository.
+An updated version of an ASP.NET Identity provider using MongoDB for storage. This started out as a fork on the original project [https://github.com/InspectorIT/MongoDB.AspNet.Identity](MongoDB.AspNet.Identity by InspectorIT), but it seems the author has abandoned the project, so I've decided to create my own repository.
 
 ## Purpose ##
 
@@ -26,6 +26,8 @@ __22-11-2015__ - The repository was created to take the code to the latest versi
 	* IUserTwoFactorStore<TUser, string>
 	* IUserLockoutStore<TUser, string>
 	* IUserStore<TUser>
+* Provides RoleStore<TRole> implementation that implements this interface:
+	* IQueryableRoleStore<TRole>
 
 ## Instructions ##
 These instructions assume you know how to set up MongoDB within an MVC application.
