@@ -17,6 +17,6 @@ build:
   publish_nuget: true
   verbosity: minimal
 after_build:
-- ps: get-childitem ..\ -rec | where {!$_.PSIsContainer} | select-object FullName, LastWriteTime, Length 
+- NuGet.exe pack src\AspNet.Identity.MongoDB.nuspec
 artifacts:
-- path: '**\*.nupkg'
+- path: 'src\AspNet.Identity.MongoDb\**\*.nupkg'
