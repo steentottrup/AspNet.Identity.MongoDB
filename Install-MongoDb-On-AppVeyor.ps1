@@ -1,20 +1,5 @@
-#Make sure 7za is installed
-choco install 7zip.commandline
-
-# Create mongodb and data directory
-md $env:temp\mongo\data
-
-# Go to mongodb dir
-Push-Location $env:temp\mongo
-
-# Download zipped mongodb binaries to mongodbdir
-Invoke-WebRequest http://downloads.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-v3.0-latest.zip -OutFile mongodb.zip
-
-# Extract mongodb zip
-cmd /c 7za e mongodb.zip
-
 # Install mongodb as a windows service
-cmd /c $env:temp\mongo\mongod.exe --logpath=$env:temp\mongo\log --dbpath=$env:temp\mongo\data\ --smallfiles --install
+cmd /c C:\mongodb\mongod.exe --logpath=c:\mongodb\log --dbpath=c:\mongodb\data\db\ --smallfiles --install
 
 # Sleep as a hack to fix an issue where the service sometimes does not finish installing quickly enough
 Start-Sleep -Seconds 5
