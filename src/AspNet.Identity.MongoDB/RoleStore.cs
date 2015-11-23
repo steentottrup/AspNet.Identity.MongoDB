@@ -17,7 +17,7 @@ namespace AspNet.Identity.MongoDB {
 		private Boolean disposed;
 
 		public RoleStore(String connectionNameOrUrl) {
-			String roleCollectionName = MongoDBIdentitySettings.Settings == null ? MongoDBIdentitySettings.Settings.RoleCollectionName : "role";
+			String roleCollectionName = MongoDBIdentitySettings.Settings != null ? MongoDBIdentitySettings.Settings.RoleCollectionName : "role";
 			this.database = UserStore<IdentityUser>.GetDatabase(connectionNameOrUrl);
 			this.collection = database.GetCollection<TRole>(roleCollectionName);
 			this.disposed = false;

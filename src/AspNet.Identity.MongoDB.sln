@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoneCode", "NoneCode", "{33
 	ProjectSection(SolutionItems) = preProject
 		..\appveyor.yml = ..\appveyor.yml
 		AspNet.Identity.MongoDB.nuspec = AspNet.Identity.MongoDB.nuspec
+		..\fixversion.ps1 = ..\fixversion.ps1
+		..\Install-MongoDb-On-AppVeyor.ps1 = ..\Install-MongoDb-On-AppVeyor.ps1
 		..\LICENSE = ..\LICENSE
 		..\README.md = ..\README.md
 	EndProjectSection

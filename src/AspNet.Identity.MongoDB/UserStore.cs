@@ -31,8 +31,8 @@ namespace AspNet.Identity.MongoDB {
 		private Boolean disposed;
 
 		public UserStore(String connectionNameOrUrl) {
-			String userCollectionName = MongoDBIdentitySettings.Settings == null ? MongoDBIdentitySettings.Settings.UserCollectionName : "user";
-			String roleCollectionName = MongoDBIdentitySettings.Settings == null ? MongoDBIdentitySettings.Settings.RoleCollectionName : "role";
+			String userCollectionName = MongoDBIdentitySettings.Settings != null ? MongoDBIdentitySettings.Settings.UserCollectionName : "user";
+			String roleCollectionName = MongoDBIdentitySettings.Settings != null ? MongoDBIdentitySettings.Settings.RoleCollectionName : "role";
 			this.database = GetDatabase(connectionNameOrUrl);
 			this.collection = database.GetCollection<TUser>(userCollectionName);
 			this.roleCollection = database.GetCollection<IdentityRole>(roleCollectionName);
@@ -74,7 +74,16 @@ namespace AspNet.Identity.MongoDB {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
+
 			// TODO: ??
+			user.LowerCaseEmailAddress = user.EmailAddress.ToLowerInvariant();
+			user.LowerCaseUserName = user.UserName.ToLowerInvariant();
+			user.AccessFailedCount = 0;
+			user.EmailAddressConfirmed = false;
+			user.LockoutEnabled = false;
+			user.PhoneNumberConfirmed = false;
+			user.TwoFactorEnabled = false;
+
 			await this.collection.InsertOneAsync(user);
 		}
 
@@ -107,6 +116,9 @@ namespace AspNet.Identity.MongoDB {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
+
+			user.LowerCaseEmailAddress = user.EmailAddress.ToLowerInvariant();
+			user.LowerCaseUserName = user.UserName.ToLowerInvariant();
 
 			FilterDefinition<TUser> filter = Builders<TUser>
 				.Filter
