@@ -1,14 +1,22 @@
-configuration: Release
 version: 0.5.0.{build}
+configuration: Release
 assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
   assembly_version: '{version}'
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
+cache: src\packages -> **\packages.config
+nuget:
+  account_feed: true
+  project_feed: true
 before_build:
-  - nuget restore src\AspNet.Identity.MongoDB.sln
+- nuget restore src\AspNet.Identity.MongoDB.sln
 build:
-  publish_nuget: true  project: src\AspNet.Identity.MongoDB.sln
-  publish_wap: true
-  verbosity: normal
+  project: src\AspNet.Identity.MongoDB.sln
+  publish_nuget: true
+  verbosity: minimal
+after_build:
+- ps: '#appveyor PushArtifact Illumi.Toolbox.SSN.$env:APPVEYOR_BUILD_VERSION.nupkg'
+artifacts:
+- path: '**\*.nupkg'
