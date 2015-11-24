@@ -491,7 +491,10 @@ namespace AspNet.Identity.MongoDB {
 				throw new ArgumentNullException("login");
 			}
 
-			List<IdentityUserLogin> logins = user.Logins.ToList();
+			List<IdentityUserLogin> logins = new List<IdentityUserLogin>();
+			if (user.Logins != null) {
+				logins = user.Logins.ToList();
+			}
 			if (!logins.Any(l => l.ProviderKey == login.ProviderKey && l.LoginProvider == login.LoginProvider)) {
 				logins.Add(new IdentityUserLogin { LoginProvider = login.LoginProvider, ProviderKey = login.ProviderKey });
 				UpdateDefinition<TUser> update = Builders<TUser>
