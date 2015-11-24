@@ -506,10 +506,12 @@ namespace AspNet.Identity.MongoDB {
 				throw new ArgumentNullException("login");
 			}
 
+			FilterDefinition<TUser> filter = Builders<TUser>
+				.Filter
+				.AnyEq(u => u.Logins, new IdentityUserLogin { LoginProvider = login.LoginProvider, ProviderKey = login.ProviderKey });
+
 			return await this.collection
-				.Find(u => u.Logins != null &&
-					u.Logins.Any(l => l.ProviderKey == login.ProviderKey && l.LoginProvider == l.LoginProvider)
-				)
+				.Find(filter)
 				.FirstOrDefaultAsync();
 		}
 

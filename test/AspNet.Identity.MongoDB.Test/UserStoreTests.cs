@@ -62,6 +62,16 @@ namespace AspNet.Identity.MongoDB.Test {
 		}
 
 		[TestMethod]
+		public void FindByLogin() {
+			this.um.Create(new IdentityUser {
+				EmailAddress = "test5@test.com",
+				UserName = "MrTest5"
+			});
+
+			IdentityUser user = this.um.Find(new UserLoginInfo("Twitter", "ewrthyjkk"));
+		}
+
+		[TestMethod]
 		public void ConfirmEmailAddressFailure() {
 			this.um.Create(new IdentityUser {
 				EmailAddress = "test4@test.com",
