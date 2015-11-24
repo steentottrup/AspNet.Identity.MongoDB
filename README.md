@@ -40,7 +40,7 @@ These instructions assume you know how to set up MongoDB within an MVC applicati
 ```PowerShell
 Uninstall-Package Microsoft.AspNet.Identity.EntityFramework
 Uninstall-Package EntityFramework
-Install-Package AspNet.Identity.MongoDB
+Install-Package AspNetIdentity.MongoDB
 ```
     
 3. In ~/Models/IdentityModels.cs:

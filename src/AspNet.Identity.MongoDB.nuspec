@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>AspNet.Identity.MongoDB</id>
+		<id>AspNetIdentity.MongoDB</id>
 		<version>$version$</version>
-		<title>AspNet.Identity.MongoDB</title>
+		<title>AspNetIdentity.MongoDB</title>
 		<authors>Steen F. Tøttrup</authors>
 		<owners>creativeminds</owners>
 		<licenseUrl>https://github.com/steentottrup/AspNet.Identity.MongoDB/blob/master/LICENSE</licenseUrl>
