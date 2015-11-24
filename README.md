@@ -3,6 +3,8 @@ AspNet.Identity.MongoDB
 
 An updated version of an ASP.NET Identity provider using MongoDB for storage. This started out as a fork on the original project [https://github.com/InspectorIT/MongoDB.AspNet.Identity](MongoDB.AspNet.Identity by InspectorIT), but it seems the author has abandoned the project, so I've decided to create my own repository.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/1knmbosmm45mdr48/branch/master?svg=true)](https://ci.appveyor.com/project/SteenTttrup/aspnet-identity-mongodb/branch/master)
+
 ## Purpose ##
 
 ASP.NET MVC 5 shipped with a new Identity system (in the Microsoft.AspNet.Identity.Core package) in order to support both local login and remote logins via OpenID/OAuth, but only ships with an Entity Framework provider (Microsoft.AspNet.Identity.EntityFramework).
