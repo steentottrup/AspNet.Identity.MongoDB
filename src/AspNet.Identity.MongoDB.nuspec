@@ -13,6 +13,8 @@
 		<language>en-GB</language>
 		<iconUrl>http://static.tumblr.com/lbtm3t2/8PAn0kziu/mongodb-logo.png</iconUrl>
 		<dependencies>
+			<dependency id="Microsoft.AspNet.Identity.Core" version="2.2.1" />
+			<dependency id="MongoDB.Driver" version="2.1.1" />
 		</dependencies>
 	</metadata>
 	<files>
