@@ -117,7 +117,9 @@ namespace AspNet.Identity.MongoDB {
 				throw new ArgumentNullException("user");
 			}
 
+			// Let's make sure the "system" fields are correct, we use these for searching
 			user.LowerCaseEmailAddress = user.EmailAddress.ToLowerInvariant();
+			// Let's make sure the "system" fields are correct, we use these for searching
 			user.LowerCaseUserName = user.UserName.ToLowerInvariant();
 
 			FilterDefinition<TUser> filter = Builders<TUser>
@@ -184,15 +186,13 @@ namespace AspNet.Identity.MongoDB {
 			await this.UpdateUserAsync(user, update);
 		}
 
-		public async Task SetLockoutEnabledAsync(TUser user, Boolean enabled) {
+		public Task SetLockoutEnabledAsync(TUser user, Boolean enabled) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-				.Update
-				.Set(u => u.LockoutEnabled, enabled);
-			await this.UpdateUserAsync(user, update);
+			user.LockoutEnabled = enabled;
+			return Task.FromResult(0);
 		}
 
 		private async Task UpdateUserAsync(TUser user, UpdateDefinition<TUser> update) {
@@ -202,15 +202,13 @@ namespace AspNet.Identity.MongoDB {
 			await this.collection.UpdateOneAsync(filter, update);
 		}
 
-		public async Task SetLockoutEndDateAsync(TUser user, DateTimeOffset lockoutEnd) {
+		public Task SetLockoutEndDateAsync(TUser user, DateTimeOffset lockoutEnd) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-				.Update
-				.Set(u => u.LockoutEndDateUtc, lockoutEnd);
-			await this.UpdateUserAsync(user, update);
+			user.LockoutEndDateUtc = lockoutEnd;
+			return Task.FromResult(0);
 		}
 
 		public async Task<Boolean> GetTwoFactorEnabledAsync(TUser user) {
@@ -221,15 +219,13 @@ namespace AspNet.Identity.MongoDB {
 			return await Task.FromResult(user.TwoFactorEnabled);
 		}
 
-		public async Task SetTwoFactorEnabledAsync(TUser user, Boolean enabled) {
+		public Task SetTwoFactorEnabledAsync(TUser user, Boolean enabled) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-				.Update
-				.Set(u => u.TwoFactorEnabled, enabled);
-			await this.UpdateUserAsync(user, update);
+			user.TwoFactorEnabled = enabled;
+			return Task.FromResult(0);
 		}
 
 		public async Task<String> GetPhoneNumberAsync(TUser user) {
@@ -248,26 +244,22 @@ namespace AspNet.Identity.MongoDB {
 			return await Task.FromResult(user.PhoneNumberConfirmed);
 		}
 
-		public async Task SetPhoneNumberAsync(TUser user, String phoneNumber) {
+		public Task SetPhoneNumberAsync(TUser user, String phoneNumber) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-				.Update
-				.Set(u => u.PhoneNumber, phoneNumber);
-			await this.UpdateUserAsync(user, update);
+			user.PhoneNumber = phoneNumber;
+			return Task.FromResult(0);
 		}
 
-		public async Task SetPhoneNumberConfirmedAsync(TUser user, Boolean confirmed) {
+		public Task SetPhoneNumberConfirmedAsync(TUser user, Boolean confirmed) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-				.Update
-				.Set(u => u.PhoneNumberConfirmed, confirmed);
-			await this.UpdateUserAsync(user, update);
+			user.PhoneNumberConfirmed = confirmed;
+			return Task.FromResult(0);
 		}
 
 		public async Task<TUser> FindByEmailAsync(String email) {
@@ -297,27 +289,23 @@ namespace AspNet.Identity.MongoDB {
 			return await Task.FromResult(user.EmailAddressConfirmed);
 		}
 
-		public async Task SetEmailAsync(TUser user, String email) {
+		public Task SetEmailAsync(TUser user, String email) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-				.Update
-				.Set(u => u.EmailAddress, email)
-				.Set(u => u.LowerCaseEmailAddress, email.ToLowerInvariant());
-			await this.UpdateUserAsync(user, update);
+			user.EmailAddress = email;
+			user.LowerCaseEmailAddress = email.ToLowerInvariant();
+			return Task.FromResult(0);
 		}
 
-		public async Task SetEmailConfirmedAsync(TUser user, Boolean confirmed) {
+		public Task SetEmailConfirmedAsync(TUser user, Boolean confirmed) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-					.Update
-					.Set(u => u.EmailAddressConfirmed, confirmed);
-			await this.UpdateUserAsync(user, update);
+			user.EmailAddressConfirmed = confirmed;
+			return Task.FromResult(0);
 		}
 
 		public IQueryable<TUser> Users {
@@ -334,16 +322,13 @@ namespace AspNet.Identity.MongoDB {
 			return await Task.FromResult(user.SecurityStamp);
 		}
 
-		public async Task SetSecurityStampAsync(TUser user, String stamp) {
+		public Task SetSecurityStampAsync(TUser user, String stamp) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-					.Update
-					.Set(u => u.SecurityStamp, stamp);
-			await this.UpdateUserAsync(user, update);
-
+			user.SecurityStamp = stamp;
+			return Task.FromResult(0);
 		}
 
 		public async Task<String> GetPasswordHashAsync(TUser user) {
@@ -362,15 +347,13 @@ namespace AspNet.Identity.MongoDB {
 			return await Task.FromResult(!String.IsNullOrWhiteSpace(user.PasswordHash));
 		}
 
-		public async Task SetPasswordHashAsync(TUser user, String passwordHash) {
+		public Task SetPasswordHashAsync(TUser user, String passwordHash) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-					.Update
-					.Set(u => u.PasswordHash, passwordHash);
-			await this.UpdateUserAsync(user, update);
+			user.PasswordHash = passwordHash;
+			return Task.FromResult(0);
 		}
 
 		public async Task AddToRoleAsync(TUser user, String roleName) {
