@@ -72,15 +72,6 @@ namespace AspNet.Identity.MongoDB.Test {
 			user.EmailAddressConfirmed.Should().Be(true);
 		}
 
-		[TestMethod]
-		public void FindByLogin() {
-			this.um.Create(new IdentityUser {
-				EmailAddress = "test5@test.com",
-				UserName = "MrTest5"
-			});
-
-			IdentityUser user = this.um.Find(new UserLoginInfo("Twitter", "ewrthyjkk"));
-		}
 
 		[TestMethod]
 		public void AddLogin() {
@@ -91,7 +82,25 @@ namespace AspNet.Identity.MongoDB.Test {
 
 			IdentityUser user = this.um.FindByEmail("test6@test.com");
 
-			this.um.AddLogin(user.Id, new UserLoginInfo("Twitter", "blablabla"));
+			IdentityResult result = this.um.AddLogin(user.Id, new UserLoginInfo("Twitter", "blablabla"));
+
+			result.Succeeded.Should().Be(true);
+		}
+
+		[TestMethod]
+		public void FindByLogin() {
+			this.um.Create(new IdentityUser {
+				EmailAddress = "test5@test.com",
+				UserName = "MrTest5"
+			});
+
+			IdentityUser user = this.um.FindByEmail("test5@test.com");
+
+			IdentityResult result = this.um.AddLogin(user.Id, new UserLoginInfo("Twitter", "blablabla"));
+
+			user = this.um.Find(new UserLoginInfo("Twitter", "blablabla"));
+
+			false.Should().Be(user == null);
 		}
 
 		[TestMethod]

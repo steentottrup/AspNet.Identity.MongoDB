@@ -175,15 +175,13 @@ namespace AspNet.Identity.MongoDB {
 			return await Task.FromResult(temp.AccessFailedCount);
 		}
 
-		public async Task ResetAccessFailedCountAsync(TUser user) {
+		public Task ResetAccessFailedCountAsync(TUser user) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 
-			UpdateDefinition<TUser> update = Builders<TUser>
-				.Update
-				.Set(u => u.AccessFailedCount, 0);
-			await this.UpdateUserAsync(user, update);
+			user.AccessFailedCount = 0;
+			return Task.FromResult(0);
 		}
 
 		public Task SetLockoutEnabledAsync(TUser user, Boolean enabled) {
@@ -374,10 +372,6 @@ namespace AspNet.Identity.MongoDB {
 						user.Roles = new List<IdentityUserRole>();
 					}
 					user.Roles.Add(new IdentityUserRole { RoleId = role.Id, Name = role.Name });
-					UpdateDefinition<TUser> update = Builders<TUser>
-						.Update
-						.Set(u => u.Roles, user.Roles);
-					await this.UpdateUserAsync(user, update);
 				}
 			}
 		}
@@ -411,39 +405,25 @@ namespace AspNet.Identity.MongoDB {
 
 			IdentityRole role = await this.roleCollection.Find(r => r.Name == roleName).FirstOrDefaultAsync();
 			if (role != null) {
-				if (user.Roles == null) {
-					user.Roles = new List<IdentityUserRole>();
-				}
-				List<IdentityUserRole> roles = user.Roles.ToList();
-				IdentityUserRole iur = roles.FirstOrDefault(r => r.RoleId == role.Id);
-				if (iur != null) {
-					roles.Remove(iur);
-					UpdateDefinition<TUser> update = Builders<TUser>
-						.Update
-						.Set(u => u.Roles, roles);
-					await this.UpdateUserAsync(user, update);
+				if (user.Roles != null && user.Roles.Any(r => r.RoleId == role.Id)) {
+					user.Roles.Remove(user.Roles.FirstOrDefault(r => r.RoleId == role.Id));
 				}
 			}
 		}
 
-		public async Task AddClaimAsync(TUser user, Claim claim) {
+		public Task AddClaimAsync(TUser user, Claim claim) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
 			if (claim == null) {
 				throw new ArgumentNullException("claim");
 			}
-			List<IdentityUserClaim> claims = new List<IdentityUserClaim>();
-			if (user.Claims != null) {
-				claims = user.Claims.ToList();
+
+			if (user.Claims == null) {
+				user.Claims = new List<IdentityUserClaim>();
 			}
-			if (!claims.Any(c => c.Value == claim.Value && c.Type == claim.Type)) {
-				claims.Add(new IdentityUserClaim { Value = claim.Value, Type = claim.Type });
-				UpdateDefinition<TUser> update = Builders<TUser>
-					.Update
-					.Set(u => u.Claims, claims);
-				await this.UpdateUserAsync(user, update);
-			}
+			user.Claims.Add(new IdentityUserClaim { Type = claim.Type, Value = claim.Value });
+			return Task.FromResult(0);
 		}
 
 		public async Task<IList<Claim>> GetClaimsAsync(TUser user) {
@@ -461,7 +441,7 @@ namespace AspNet.Identity.MongoDB {
 			);
 		}
 
-		public async Task RemoveClaimAsync(TUser user, Claim claim) {
+		public Task RemoveClaimAsync(TUser user, Claim claim) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
@@ -469,21 +449,15 @@ namespace AspNet.Identity.MongoDB {
 				throw new ArgumentNullException("claim");
 			}
 
-			List<IdentityUserClaim> claims = new List<IdentityUserClaim>();
-			if (user.Claims != null) {
-				claims = user.Claims.ToList();
+
+			if (user.Claims != null && user.Claims.Any(c => c.Type == claim.Type && c.Value == claim.Value)) {
+				user.Claims.Remove(user.Claims.FirstOrDefault(c => c.Type == claim.Type && c.Value == claim.Value));
+
 			}
-			IdentityUserClaim cl = claims.FirstOrDefault(c => c.Type == claim.Type && c.Value == claim.Value);
-			if (cl != null) {
-				claims.Remove(cl);
-				UpdateDefinition<TUser> update = Builders<TUser>
-					.Update
-					.Set(u => u.Claims, claims);
-				await this.UpdateUserAsync(user, update);
-			}
+			return Task.FromResult(0);
 		}
 
-		public async Task AddLoginAsync(TUser user, UserLoginInfo login) {
+		public Task AddLoginAsync(TUser user, UserLoginInfo login) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
@@ -491,17 +465,13 @@ namespace AspNet.Identity.MongoDB {
 				throw new ArgumentNullException("login");
 			}
 
-			List<IdentityUserLogin> logins = new List<IdentityUserLogin>();
-			if (user.Logins != null) {
-				logins = user.Logins.ToList();
+			if (user.Logins == null) {
+				user.Logins = new List<IdentityUserLogin>();
 			}
-			if (!logins.Any(l => l.ProviderKey == login.ProviderKey && l.LoginProvider == login.LoginProvider)) {
-				logins.Add(new IdentityUserLogin { LoginProvider = login.LoginProvider, ProviderKey = login.ProviderKey });
-				UpdateDefinition<TUser> update = Builders<TUser>
-					.Update
-					.Set(u => u.Logins, logins);
-				await this.UpdateUserAsync(user, update);
+			if (!user.Logins.Any(l => l.ProviderKey == login.ProviderKey && l.LoginProvider == login.LoginProvider)) {
+				user.Logins.Add(new IdentityUserLogin { LoginProvider = login.LoginProvider, ProviderKey = login.ProviderKey });
 			}
+			return Task.FromResult(0);
 		}
 
 		public async Task<TUser> FindAsync(UserLoginInfo login) {
@@ -530,7 +500,7 @@ namespace AspNet.Identity.MongoDB {
 			);
 		}
 
-		public async Task RemoveLoginAsync(TUser user, UserLoginInfo login) {
+		public Task RemoveLoginAsync(TUser user, UserLoginInfo login) {
 			if (user == null) {
 				throw new ArgumentNullException("user");
 			}
@@ -538,15 +508,10 @@ namespace AspNet.Identity.MongoDB {
 				throw new ArgumentNullException("login");
 			}
 
-			List<IdentityUserLogin> logins = user.Logins.ToList();
-			IdentityUserLogin iul = logins.FirstOrDefault(l => l.ProviderKey == login.ProviderKey && l.LoginProvider == login.LoginProvider);
-			if (iul != null) {
-				logins.Remove(iul);
-				UpdateDefinition<TUser> update = Builders<TUser>
-					.Update
-					.Set(u => u.Logins, logins);
-				await this.UpdateUserAsync(user, update);
+			if (user.Logins != null && user.Logins.Any(l => l.ProviderKey == login.ProviderKey && l.LoginProvider == login.LoginProvider)) {
+				user.Logins.Remove(user.Logins.FirstOrDefault(l => l.ProviderKey == login.ProviderKey && l.LoginProvider == login.LoginProvider));
 			}
+			return Task.FromResult(0);
 		}
 	}
 }
