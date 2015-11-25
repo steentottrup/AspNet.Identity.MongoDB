@@ -387,7 +387,7 @@ namespace AspNet.Identity.MongoDB {
 				throw new ArgumentNullException("user");
 			}
 			// TODO: Validate against the roles collection??
-			return await Task.FromResult(user.Roles.Select(r => r.Name).ToList());
+			return await Task.FromResult(user.Roles == null ? new List<String>() : user.Roles.Select(r => r.Name).ToList());
 		}
 
 		public async Task<Boolean> IsInRoleAsync(TUser user, String roleName) {
@@ -398,7 +398,7 @@ namespace AspNet.Identity.MongoDB {
 				throw new ArgumentNullException(roleName);
 			}
 			// TODO: Validate against the roles collection??
-			return await Task.FromResult(user.Roles.Any(r => r.Name == roleName));
+			return await Task.FromResult(user.Roles == null ? false : user.Roles.Any(r => r.Name == roleName));
 		}
 
 		public async Task RemoveFromRoleAsync(TUser user, String roleName) {
@@ -411,10 +411,10 @@ namespace AspNet.Identity.MongoDB {
 
 			IdentityRole role = await this.roleCollection.Find(r => r.Name == roleName).FirstOrDefaultAsync();
 			if (role != null) {
-				List<IdentityUserRole> roles = new List<IdentityUserRole>();
-				if (user.Roles != null) {
-					roles = user.Roles.ToList();
+				if (user.Roles == null) {
+					user.Roles = new List<IdentityUserRole>();
 				}
+				List<IdentityUserRole> roles = user.Roles.ToList();
 				IdentityUserRole iur = roles.FirstOrDefault(r => r.RoleId == role.Id);
 				if (iur != null) {
 					roles.Remove(iur);

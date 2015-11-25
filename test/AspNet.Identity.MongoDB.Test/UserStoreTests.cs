@@ -40,6 +40,17 @@ namespace AspNet.Identity.MongoDB.Test {
 		}
 
 		[TestMethod]
+		public void CreateIdentity() {
+			this.um.Create(new IdentityUser {
+				EmailAddress = "test7@test.com",
+				UserName = "MrTest7"
+			});
+
+			IdentityUser user = this.um.FindByName("mrtest7");
+
+			this.um.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+		}
+		[TestMethod]
 		public void ConfirmEmailAddressSuccess() {
 			this.um.Create(new IdentityUser {
 				EmailAddress = "test3@test.com",
