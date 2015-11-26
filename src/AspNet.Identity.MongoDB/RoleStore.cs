@@ -33,6 +33,8 @@ namespace AspNet.Identity.MongoDB {
 				throw new ArgumentNullException("role");
 			}
 			// TODO: ??
+			role.LowerCaseName = role.Name.ToLowerInvariant();
+
 			await this.collection.InsertOneAsync(role);
 		}
 

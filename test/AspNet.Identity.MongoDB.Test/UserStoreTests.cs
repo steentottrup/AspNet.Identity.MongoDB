@@ -9,10 +9,12 @@ namespace AspNet.Identity.MongoDB.Test {
 	[TestClass]
 	public class UserStoreTests {
 		private UserManager<IdentityUser> um;
+		private RoleManager<IdentityRole> rm;
 
 		[TestInitialize]
 		public void Init() {
 			this.um = Common.InitializeWithToken();
+			this.rm = Common.InitializeRoleManager();
 		}
 
 		[TestMethod]
@@ -25,6 +27,25 @@ namespace AspNet.Identity.MongoDB.Test {
 			IdentityUser user = this.um.FindByEmail("test@test.com");
 
 			user.UserName.Should().Be("Test");
+		}
+
+		[TestMethod]
+		public void AddUserToGroup() {
+			this.um.Create(new IdentityUser {
+				EmailAddress = "test8@test.com",
+				UserName = "Test8"
+			});
+
+			IdentityUser user = this.um.FindByEmail("test8@test.com");
+
+			String roleName = "Editor";
+			IdentityResult result = this.rm.Create(new IdentityRole { Name = roleName });
+
+			result = this.um.AddToRole(user.Id, roleName);
+
+			user = this.um.FindByEmail("test8@test.com");
+
+			user.Roles.Count.Should().Be(1);
 		}
 
 		[TestMethod]

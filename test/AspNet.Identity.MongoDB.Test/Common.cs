@@ -28,5 +28,9 @@ namespace AspNet.Identity.MongoDB.Test {
 				UserTokenProvider = new CustomUserTokenProvider(),
 			};
 		}
+
+		public static RoleManager<IdentityRole> InitializeRoleManager() {
+			return new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(mongoUrl));
+		}
 	}
 }
