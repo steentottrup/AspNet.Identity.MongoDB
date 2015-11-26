@@ -18,9 +18,14 @@ namespace AspNet.Identity.MongoDB {
 
 		public RoleStore(String connectionNameOrUrl) {
 			String roleCollectionName = MongoDBIdentitySettings.Settings != null ? MongoDBIdentitySettings.Settings.RoleCollectionName : "role";
-			this.database = UserStore<IdentityUser>.GetDatabase(connectionNameOrUrl);
-			this.collection = database.GetCollection<TRole>(roleCollectionName);
+			this.database = MongoDBUtilities.GetDatabase(connectionNameOrUrl);
+			this.collection = database.GetCollection<TRole>(MongoDBUtilities.GetRoleCollectionName());
 			this.disposed = false;
+		}
+
+		public static void Initialize(String connectionNameOrUrl) {
+			IMongoCollection<TRole> collection = MongoDBUtilities.GetDatabase(connectionNameOrUrl).GetCollection<TRole>(MongoDBUtilities.GetRoleCollectionName());
+			EnsureIndexes.RoleStore<TRole>(collection);
 		}
 
 		public async Task CreateAsync(TRole role) {

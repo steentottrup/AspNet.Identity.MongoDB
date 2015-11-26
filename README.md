@@ -59,6 +59,14 @@ public AccountController()
 }
 ```
 
+```C#
+public Application_Start()
+{
+        UserStore<ApplicationUser>.Initialize("Mongo");
+        RoleStore<ApplicationUser>.Initialize("Mongo");
+}
+```
+
 ## Connection Strings ##
 The UserStore has multiple constructors for handling connection strings. Here are some examples of the expected inputs and where the connection string should be located.
 

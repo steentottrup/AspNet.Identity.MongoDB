@@ -17,13 +17,15 @@ namespace AspNet.Identity.MongoDB.Test {
 
 		public static UserManager<IdentityUser> Initialize() {
 			CleanUp();
+			UserStore<IdentityUser>.Initialize(mongoUrl);
 			return new UserManager<IdentityUser>(new UserStore<IdentityUser>(mongoUrl));
 		}
 
 		public static UserManager<IdentityUser> InitializeWithToken() {
 			CleanUp();
+			UserStore<IdentityUser>.Initialize(mongoUrl);
 			return new UserManager<IdentityUser>(new UserStore<IdentityUser>(mongoUrl)) {
-				UserTokenProvider = new CustomUserTokenProvider()
+				UserTokenProvider = new CustomUserTokenProvider(),
 			};
 		}
 	}

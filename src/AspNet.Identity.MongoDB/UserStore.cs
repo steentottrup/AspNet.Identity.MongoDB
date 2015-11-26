@@ -31,43 +31,15 @@ namespace AspNet.Identity.MongoDB {
 		private Boolean disposed;
 
 		public UserStore(String connectionNameOrUrl) {
-			String userCollectionName = MongoDBIdentitySettings.Settings != null ? MongoDBIdentitySettings.Settings.UserCollectionName : "user";
-			String roleCollectionName = MongoDBIdentitySettings.Settings != null ? MongoDBIdentitySettings.Settings.RoleCollectionName : "role";
-			this.database = GetDatabase(connectionNameOrUrl);
-			this.collection = database.GetCollection<TUser>(userCollectionName);
-			this.roleCollection = database.GetCollection<IdentityRole>(roleCollectionName);
+			this.database = MongoDBUtilities.GetDatabase(connectionNameOrUrl);
+			this.collection = database.GetCollection<TUser>(MongoDBUtilities.GetUserCollectionName());
+			this.roleCollection = database.GetCollection<IdentityRole>(MongoDBUtilities.GetRoleCollectionName());
 			this.disposed = false;
 		}
 
-		internal static IMongoDatabase GetDatabase(String connectionNameOrUrl) {
-			if (connectionNameOrUrl.ToLower().StartsWith("mongodb://")) {
-				return GetDatabaseFromUrl(new MongoUrl(connectionNameOrUrl));
-			}
-			else {
-				String connStringFromManager = ConfigurationManager.ConnectionStrings[connectionNameOrUrl].ConnectionString;
-				if (connStringFromManager.ToLower().StartsWith("mongodb://")) {
-					return GetDatabaseFromUrl(new MongoUrl(connStringFromManager));
-				}
-				else {
-					return GetDatabaseFromSqlStyle(connStringFromManager);
-				}
-			}
-		}
-
-		internal static IMongoDatabase GetDatabaseFromSqlStyle(String connectionString) {
-			MongoUrl url = MongoUrl.Create(connectionString);
-			if (url.DatabaseName == null) {
-				throw new Exception("No database name specified in connection string");
-			}
-			MongoClientSettings settings = MongoClientSettings.FromUrl(url);
-			return new MongoClient(settings).GetDatabase(url.DatabaseName);
-		}
-
-		internal static IMongoDatabase GetDatabaseFromUrl(MongoUrl url) {
-			if (url.DatabaseName == null) {
-				throw new Exception("No database name specified in connection string");
-			}
-			return new MongoClient(url).GetDatabase(url.DatabaseName); // WriteConcern defaulted to Acknowledged
+		public static void Initialize(String connectionNameOrUrl) {
+			IMongoCollection<TUser> collection = MongoDBUtilities.GetDatabase(connectionNameOrUrl).GetCollection<TUser>(MongoDBUtilities.GetUserCollectionName());
+			EnsureIndexes.UserStore<TUser>(collection);
 		}
 
 		public async Task CreateAsync(TUser user) {
