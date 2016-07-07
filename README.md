@@ -71,6 +71,14 @@ public Application_Start()
 }
 ```
 
+Or you can create the indexes yourself, directly in the MongoDb console. Here an example where the user collection is named 'user' and the role collection is named 'role'.
+
+```Javascript
+db.user.createIndex({ "lun": 1 }, { "unique": true })
+db.user.createIndex({ "lem": 1 })
+db.role.createIndex({ "ln": 1 }, { "unique": true })
+```
+
 ## Connection Strings ##
 The UserStore has multiple constructors for handling connection strings. Here are some examples of the expected inputs and where the connection string should be located.
 
