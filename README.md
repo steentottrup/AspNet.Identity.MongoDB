@@ -10,6 +10,7 @@ An updated version of an ASP.NET Identity provider using MongoDB for storage. Th
 ASP.NET MVC 5 shipped with a new Identity system (in the Microsoft.AspNet.Identity.Core package) in order to support both local login and remote logins via OpenID/OAuth, but only ships with an Entity Framework provider (Microsoft.AspNet.Identity.EntityFramework).
 
 ## News ##
+__07-07-2016__ - Updating to latest MongoDb driver (2.2.4) and fixing the async/await methods to work as intended.
 __22-11-2015__ - The repository was created to take the code to the latest version of the Identity assemblies and the MongoDB driver.
 
 ## Features ##
