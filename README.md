@@ -5,7 +5,7 @@ An updated version of an ASP.NET Identity provider using MongoDB for storage. Th
 
 [![Build status](https://ci.appveyor.com/api/projects/status/1knmbosmm45mdr48/branch/master?svg=true)](https://ci.appveyor.com/project/SteenTttrup/aspnet-identity-mongodb/branch/master)
 
-![Test status](http://teststatusbadge.azurewebsites.net/api/status/SteenTttrup/aspnet-identity-mongodb)]
+[![Test status](http://teststatusbadge.azurewebsites.net/api/status/SteenTttrup/aspnet-identity-mongodb)]
 (https://ci.appveyor.com/project/SteenTttrup/aspnet-identity-mongodb)
 
 ## Purpose ##
