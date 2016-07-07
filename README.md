@@ -5,6 +5,9 @@ An updated version of an ASP.NET Identity provider using MongoDB for storage. Th
 
 [![Build status](https://ci.appveyor.com/api/projects/status/1knmbosmm45mdr48/branch/master?svg=true)](https://ci.appveyor.com/project/SteenTttrup/aspnet-identity-mongodb/branch/master)
 
+![Test status](http://teststatusbadge.azurewebsites.net/api/status/SteenTttrup/aspnet-identity-mongodb)]
+(https://ci.appveyor.com/project/SteenTttrup/aspnet-identity-mongodb)
+
 ## Purpose ##
 
 ASP.NET MVC 5 shipped with a new Identity system (in the Microsoft.AspNet.Identity.Core package) in order to support both local login and remote logins via OpenID/OAuth, but only ships with an Entity Framework provider (Microsoft.AspNet.Identity.EntityFramework).
