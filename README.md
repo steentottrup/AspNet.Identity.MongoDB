@@ -3,10 +3,8 @@ AspNet.Identity.MongoDB
 
 An updated version of an ASP.NET Identity provider using MongoDB for storage. This started out as a fork on the original project [MongoDB.AspNet.Identity by InspectorIT](https://github.com/InspectorIT/MongoDB.AspNet.Identity), but it seems the author has abandoned the project, so I've decided to create my own repository.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/1knmbosmm45mdr48/branch/master?svg=true)](https://ci.appveyor.com/project/SteenTttrup/aspnet-identity-mongodb/branch/master)
-
-[![Test status](http://teststatusbadge.azurewebsites.net/api/status/SteenTttrup/aspnet-identity-mongodb)]
-(https://ci.appveyor.com/project/SteenTttrup/aspnet-identity-mongodb)
+[![Build status](https://ci.appveyor.com/api/projects/status/1knmbosmm45mdr48/branch/master?svg=true)](https://ci.appveyor.com/project/SteenTttrup/aspnet-identity-mongodb/branch/master) [![Test status](http://teststatusbadge.azurewebsites.net/api/status/SteenTttrup/aspnet-identity-mongodb)]
+(https://ci.appveyor.com/project/SteenTttrup/aspnet-identity-mongodb) [![NuGet Version](http://img.shields.io/nuget/v/aspnetidentity.mongodb.svg?style=flat)](https://www.nuget.org/packages/aspnetidentity.mongodb/)
 
 ## Purpose ##
 
