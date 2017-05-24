@@ -58,7 +58,9 @@ Install-Package AspNetIdentity.MongoDB
 public AccountController()
 {
 	this.UserManager = new UserManager<ApplicationUser>(
-		new UserStore<ApplicationUser>("Mongo")) as ApplicationUserManager;}
+					new UserStore<ApplicationUser>("Mongo")
+				) as ApplicationUserManager;
+}
 ```
 
 If you expect your user/role stores to contain lots of users, you should make sure the proper indexes are in place on the MongoD collections. On application start you can call these 2 initialize methods, and the indexes will be added if they're missing.
